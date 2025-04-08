@@ -20,6 +20,20 @@ exports.getAllNews = async (req, res) => {
     }
 };
 
+// Get Latest News
+exports.getLatestNews = async (req, res) => {
+    try {
+        const latestNews = await News.findAll({
+            limit: 2,
+            order: [['createdAt', 'DESC']]
+        });
+
+        res.status(200).json(latestNews);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 // Get Single News by ID
 exports.getNewsById = async (req, res) => {
     try {

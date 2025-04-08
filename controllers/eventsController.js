@@ -1,5 +1,6 @@
 const { Event } = require('../models');
 
+// Create Event
 exports.createEvent = async (req, res) => {
     try {
         const event = await Event.create(req.body);
@@ -9,6 +10,7 @@ exports.createEvent = async (req, res) => {
     }
 };
 
+// Get All Events
 exports.getAllEvents = async (req, res) => {
     try {
         const events = await Event.findAll();
@@ -18,6 +20,21 @@ exports.getAllEvents = async (req, res) => {
     }
 };
 
+// Get Latest Events
+exports.getLatestEvents = async (req, res) => {
+    try {
+        const latestEvents = await Event.findAll({
+            limit: 4,
+            order: [['createdAt', 'DESC']]
+        });
+
+        res.status(200).json(latestEvents);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Get Event By Id
 exports.getEventById = async (req, res) => {
     try {
         const event = await Event.findByPk(req.params.id);
@@ -28,6 +45,7 @@ exports.getEventById = async (req, res) => {
     }
 };
 
+// Update Event
 exports.updateEvent = async (req, res) => {
     try {
         const event = await Event.findByPk(req.params.id);
@@ -40,6 +58,7 @@ exports.updateEvent = async (req, res) => {
     }
 };
 
+// Delete Event
 exports.deleteEvent = async (req, res) => {
     try {
         const event = await Event.findByPk(req.params.id);
