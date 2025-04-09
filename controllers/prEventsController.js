@@ -20,6 +20,20 @@ exports.getAllPrEvents = async (req, res) => {
     }
 };
 
+// Get Latest PrEvents
+exports.getLatestPrEvents = async (req, res) => {
+    try {
+        const latestPrEvents = await PrEvent.findAll({
+            limit: 4,
+            order: [['createdAt', 'DESC']]
+        });
+
+        res.status(200).json(latestPrEvents);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 // Get Single PR Event by ID
 exports.getPrEventById = async (req, res) => {
     try {
