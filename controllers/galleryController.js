@@ -1,14 +1,19 @@
 const { Gallery } = require('../models');
 
 // Create a new gallery item
-exports.createGalleryItem = async (req, res) => {
+exports.createImage = async (req, res) => {
     try {
-        const galleryItem = await Gallery.create(req.body);
-        res.status(201).json(galleryItem);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+        const { title } = req.body;
+        const image = req.file ? `gallery/${req.file.filename}` : null;
+
+        const newImage = await Gallery.create({ title, image });
+
+        res.status(201).json({ message: 'Image uploaded', data: newImage });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
+
 
 // Get all gallery items
 exports.getAllGalleryItems = async (req, res) => {

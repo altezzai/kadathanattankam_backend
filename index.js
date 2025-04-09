@@ -9,18 +9,21 @@ const galleryRoutes = require("./routes/galleryRoutes");
 const authRoutes = require("./routes/authRoutes");
 const cors = require("cors");
 require("dotenv").config();
+const initUploadDir = require("./utils/initUploadDir");
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+initUploadDir();
 
 // Register Routes
-app.use("/news", newsRoutes);
-app.use("/events", eventsRoutes);
-app.use("/pr-events", prEventsRoutes);
-app.use("/quotations", quotationsRoutes);
-app.use("/gallery", galleryRoutes);
-app.use("/auth", authRoutes);
+app.use("/api/v1/news", newsRoutes);
+app.use("/api/v1/events", eventsRoutes);
+app.use("/api/v1/pr-events", prEventsRoutes);
+app.use("/api/v1/quotations", quotationsRoutes);
+app.use("/api/v1/gallery", galleryRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/uploads", express.static("uploads"));
 
 // Sync Database
 db.sequelize

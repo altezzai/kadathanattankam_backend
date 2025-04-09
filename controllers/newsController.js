@@ -3,12 +3,22 @@ const { News } = require('../models');
 // Create News
 exports.createNews = async (req, res) => {
     try {
-        const news = await News.create(req.body);
-        res.status(201).json(news);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+        const { title, description, date } = req.body;
+        const image = req.file ? `news/${req.file.filename}` : null;
+
+        const news = await News.create({
+            title,
+            description,
+            date,
+            image
+        });
+
+        res.status(201).json({ message: 'News created', news });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
+
 
 // Get All News
 exports.getAllNews = async (req, res) => {
