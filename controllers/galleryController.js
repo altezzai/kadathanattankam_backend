@@ -4,7 +4,7 @@ const { Gallery } = require('../models');
 exports.createImage = async (req, res) => {
     try {
         const { title } = req.body;
-        const image = req.file ? `gallery/${req.file.filename}` : null;
+        const image = req.file ? `${req.file.filename}` : null;
 
         const newImage = await Gallery.create({ title, image });
 
@@ -18,12 +18,15 @@ exports.createImage = async (req, res) => {
 // Get all gallery items
 exports.getAllGalleryItems = async (req, res) => {
     try {
-        const galleryItems = await Gallery.findAll();
+        const galleryItems = await Gallery.findAll({
+            order: [['id', 'DESC']]
+        });
         res.json(galleryItems);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // Get a single gallery item by ID
 exports.getGalleryItemById = async (req, res) => {

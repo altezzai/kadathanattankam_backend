@@ -13,12 +13,15 @@ exports.createPrEvent = async (req, res) => {
 // Get All PR Events
 exports.getAllPrEvents = async (req, res) => {
     try {
-        const prEvents = await PrEvent.findAll();
+        const prEvents = await PrEvent.findAll({
+            order: [['id', 'DESC']]
+        });
         res.json(prEvents);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // Get Latest PrEvents
 exports.getLatestPrEvents = async (req, res) => {
