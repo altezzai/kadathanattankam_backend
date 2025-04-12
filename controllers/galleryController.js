@@ -42,15 +42,20 @@ exports.getGalleryItemById = async (req, res) => {
 // Update a gallery item
 exports.updateGalleryItem = async (req, res) => {
     try {
-        const galleryItem = await Gallery.findByPk(req.params.id);
-        if (!galleryItem) return res.status(404).json({ error: "Gallery item not found" });
-
-        await galleryItem.update(req.body);
-        res.json(galleryItem);
+      const galleryItem = await Gallery.findByPk(req.params.id);
+      if (!galleryItem) return res.status(404).json({ error: "Gallery item not found" });
+  
+      const { title } = req.body;
+      const image = req.file ? `${req.file.filename}` : galleryItem.image; // fallback to old image if no new one uploaded
+  
+      await galleryItem.update({ title, image });
+  
+      res.json(galleryItem);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+      res.status(400).json({ error: error.message });
     }
-};
+  };
+  
 
 // Delete a gallery item
 exports.deleteGalleryItem = async (req, res) => {

@@ -9,7 +9,7 @@ router.post('/',authenticateToken, uploadGallery.single('image'), galleryControl
 
 router.get('/', galleryController.getAllGalleryItems);
 router.get('/:id', galleryController.getGalleryItemById);
-router.put('/:id',authenticateToken, galleryController.updateGalleryItem);
+router.put('/:id', authenticateToken, uploadGallery.single('image'), galleryController.updateGalleryItem);
 router.delete('/:id',authenticateToken, galleryController.deleteGalleryItem);
 
 module.exports = router;

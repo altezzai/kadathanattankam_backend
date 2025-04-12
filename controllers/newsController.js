@@ -64,7 +64,11 @@ exports.updateNews = async (req, res) => {
         const news = await News.findByPk(req.params.id);
         if (!news) return res.status(404).json({ error: "News not found" });
 
-        await news.update(req.body);
+        const { title,date,description } = req.body;
+        const image = req.file ? `${req.file.filename}` : news.image; // fallback to old image if no new one uploaded
+    
+        await news.update({ title, image, date, description });
+    
         res.json(news);
     } catch (error) {
         res.status(400).json({ error: error.message });
