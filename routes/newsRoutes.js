@@ -10,7 +10,7 @@ router.post('/',authenticateToken, uploadNews.single('image'), newsController.cr
 router.get('/', newsController.getAllNews);
 router.get('/latest', newsController.getLatestNews);
 router.get('/:id', newsController.getNewsById);
-router.put('/:id',authenticateToken, newsController.updateNews);
+router.put('/:id',authenticateToken,uploadNews.single('image'), newsController.updateNews);
 router.delete('/:id',authenticateToken, newsController.deleteNews);
 
 module.exports = router;

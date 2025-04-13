@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       description: DataTypes.TEXT,
       cost: DataTypes.DECIMAL,
-      lastDate: DataTypes.DATE,
+      date: DataTypes.DATE,
       phoneNumber: DataTypes.STRING,
     },
     {

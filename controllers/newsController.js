@@ -4,7 +4,7 @@ const { News } = require('../models');
 exports.createNews = async (req, res) => {
     try {
         const { title, description, date } = req.body;
-        const image = req.file ? `news/${req.file.filename}` : null;
+        const image = req.file ? `${req.file.filename}` : null;
 
         const news = await News.create({
             title,
@@ -23,12 +23,15 @@ exports.createNews = async (req, res) => {
 // Get All News
 exports.getAllNews = async (req, res) => {
     try {
-        const news = await News.findAll();
+        const news = await News.findAll({
+            order: [['id', 'DESC']]
+        });
         res.json(news);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // Get Latest News
 exports.getLatestNews = async (req, res) => {
@@ -61,7 +64,11 @@ exports.updateNews = async (req, res) => {
         const news = await News.findByPk(req.params.id);
         if (!news) return res.status(404).json({ error: "News not found" });
 
-        await news.update(req.body);
+        const { title,date,description } = req.body;
+        const image = req.file ? `${req.file.filename}` : news.image; // fallback to old image if no new one uploaded
+    
+        await news.update({ title, image, date, description });
+    
         res.json(news);
     } catch (error) {
         res.status(400).json({ error: error.message });

@@ -13,12 +13,15 @@ exports.createEvent = async (req, res) => {
 // Get All Events
 exports.getAllEvents = async (req, res) => {
     try {
-        const events = await Event.findAll();
+        const events = await Event.findAll({
+            order: [['id', 'DESC']]
+        });
         res.json(events);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // Get Latest Events
 exports.getLatestEvents = async (req, res) => {

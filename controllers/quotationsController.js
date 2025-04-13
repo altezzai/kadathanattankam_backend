@@ -13,12 +13,15 @@ exports.createQuotation = async (req, res) => {
 // Get All Quotations
 exports.getAllQuotations = async (req, res) => {
     try {
-        const quotations = await Quotation.findAll();
+        const quotations = await Quotation.findAll({
+            order: [['id', 'DESC']]
+        });
         res.json(quotations);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // Get Single Quotation by ID
 exports.getQuotationById = async (req, res) => {
