@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcryptjs');
+const { Model, DataTypes } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize) => {
   class User extends Model {
@@ -29,8 +29,8 @@ module.exports = (sequelize) => {
     },
     {
       sequelize,
-      modelName: 'User',
-      tableName: 'user',
+      modelName: "User",
+      tableName: "user",
       freezeTableName: true,
       hooks: {
         beforeCreate: async (user) => {
