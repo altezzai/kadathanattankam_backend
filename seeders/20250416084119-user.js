@@ -1,12 +1,13 @@
 "use strict";
-
+const bcrypt = require("bcryptjs");
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const hashedPassword = await bcrypt.hash("password123", 10);
     await queryInterface.bulkInsert("user", [
       {
         username: "admin",
         email: "admin@example.com",
-        password: "password123", // will be hashed by the model hook
+        password: hashedPassword,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
