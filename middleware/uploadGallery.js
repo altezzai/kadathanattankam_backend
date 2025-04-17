@@ -1,5 +1,6 @@
 const multer = require('multer');
 const path = require('path');
+const { LIMIT_FILE_SIZE } = require('../utils/constants');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -13,7 +14,7 @@ const storage = multer.diskStorage({
 
 const uploadGallery = multer({
     storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+    limits: { fileSize: LIMIT_FILE_SIZE }, // 5MB
     fileFilter: (req, file, cb) => {
         const allowedTypes = /jpeg|jpg|png/;
         const isValid = allowedTypes.test(path.extname(file.originalname).toLowerCase()) &&

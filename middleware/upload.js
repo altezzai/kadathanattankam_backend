@@ -1,5 +1,6 @@
 const multer = require('multer');
 const path = require('path');
+const { LIMIT_FILE_SIZE } = require('../utils/constants');
 
 // Set storage engine
 const storage = multer.diskStorage({
@@ -27,7 +28,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage,
     fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024 } // 5 MB max
+    limits: { fileSize: LIMIT_FILE_SIZE } // 10 MB max
 });
 
 module.exports = upload;
