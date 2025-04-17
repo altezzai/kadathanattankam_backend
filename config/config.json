@@ -1,14 +1,14 @@
 {
   "development": {
-    "username": "root",
+    "username": "osp",
     "password": "12345",
     "database": "kadathanattangam",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
+    "username": "osp",
+    "password": "12345",
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
