@@ -14,7 +14,7 @@ exports.createPrEvent = async (req, res) => {
 exports.getAllPrEvents = async (req, res) => {
     try {
         const prEvents = await PrEvent.findAll({
-            order: [['id', 'DESC']]
+            order: [['date', 'DESC']]
         });
         res.json(prEvents);
     } catch (error) {
@@ -28,7 +28,7 @@ exports.getLatestPrEvents = async (req, res) => {
     try {
         const latestPrEvents = await PrEvent.findAll({
             limit: 4,
-            order: [['createdAt', 'DESC']]
+            order: [['date', 'DESC']]
         });
 
         res.status(200).json(latestPrEvents);
