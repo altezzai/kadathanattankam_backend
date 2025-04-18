@@ -24,7 +24,7 @@ exports.createNews = async (req, res) => {
 exports.getAllNews = async (req, res) => {
     try {
         const news = await News.findAll({
-            order: [['id', 'DESC']]
+            order: [['date', 'DESC']]
         });
         res.json(news);
     } catch (error) {
@@ -38,7 +38,7 @@ exports.getLatestNews = async (req, res) => {
     try {
         const latestNews = await News.findAll({
             limit: 2,
-            order: [['createdAt', 'DESC']]
+            order: [['date', 'DESC']]
         });
 
         res.status(200).json(latestNews);
